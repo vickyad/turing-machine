@@ -25,7 +25,7 @@ pub fn greet(name: &str) {
 }
 
 #[wasm_bindgen]
-pub fn turing_machine(entry_word: &str) {
+pub fn turing_machine(entry_word: &str, alphabet: &str) {
     let tape = tape::Tape::new("$|#", entry_word);
     let states = vec![
         state::State::new('0', state::StateType::Start),
@@ -41,7 +41,7 @@ pub fn turing_machine(entry_word: &str) {
  
     let mut tm = tm::TM::new(states, transitions, tape);
 
-    tm.process(true);
+    //tm.process(true);
 
-    alert(&format!("{}", tm.tape.to_string()));
+    alert(&format!("{}", alphabet.to_string()));
 }

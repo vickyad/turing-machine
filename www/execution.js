@@ -9,5 +9,5 @@ runButton.addEventListener('click', event => {
     const TMObject = JSON.parse(window.localStorage.getItem('TMObject'))
     console.log(TMObject)
 
-    //wasm.turing_machine(entryWord)
+    wasm.turing_machine(entryWord, TMObject.alphabet)
 })

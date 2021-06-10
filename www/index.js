@@ -1,5 +1,4 @@
 import * as wasm from "turing-machine";
-import { start } from './execution'
 
 const BLANK_CHAR = ""
 const ERROR_NO_STATES = "[ERRO] 'Todos os estados': por favor, forneça ao menos um estado"
@@ -49,11 +48,16 @@ generateTableButton.addEventListener('click', event => {
 })
 
 const createTMObject = () => {
+    const alphabetString = alphabet.reduce((finalString, element) => {
+        return finalString += element
+    }, "")
+
     const TMObject = {
         states: statesList,
-        alphabet: alphabet,
+        alphabet: alphabetString,
         transitions: transitionTable
     }
+    console.log(TMObject)
     window.localStorage.setItem('TMObject', JSON.stringify(TMObject));
 }
 

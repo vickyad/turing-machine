@@ -52,10 +52,29 @@ const createTMObject = () => {
         return finalString += element
     }, "")
 
+    const finalStatesString = finalStatesList.reduce((finalString, element) => {
+        return finalString += (element + ',') 
+    }, "")
+
+    const neutralStates = statesList.filter((element) => {
+        return !(element === initialState || finalStatesList.includes(element))
+    })
+    const statesString = neutralStates.reduce((finalString, element) => {
+        return finalString += (element + ',')
+    }, "")
+    const transitionsString = transitionTable.reduce((finalString, line) => {
+        let lineString = line.reduce((finalLine, element) => {
+            return finalLine += (element + ',')
+        }, "")
+        return finalString += (lineString + '/')
+    }, "")
+
     const TMObject = {
-        states: statesList,
         alphabet: alphabetString,
-        transitions: transitionTable
+        initialState: initialState,
+        states: statesString,
+        finalStates: finalStatesString,
+        transitions: transitionsString
     }
     console.log(TMObject)
     window.localStorage.setItem('TMObject', JSON.stringify(TMObject));

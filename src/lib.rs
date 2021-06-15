@@ -17,11 +17,27 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 #[wasm_bindgen]
 extern {
     fn alert(s: &str);
+
+    #[wasm_bindgen(js_namespace= console)]
+    fn log(a: &str);
+
+    #[wasm_bindgen(js_namespace= console , js_name = log)]
+    fn log_number(a: usize);
 }
 
 #[wasm_bindgen]
 pub fn greet(name: &str) {
     alert(&format!("Hello, {}!", name));
+}
+
+#[wasm_bindgen]
+pub fn build_machine(entry_word: &str, alphabet: &str, initial_state: &str, states: &str, final_states: &str, transitions: &str) {
+    log(&format!("{}", entry_word.to_string()));
+    log(&format!("{}", alphabet.to_string()));
+    log(&format!("{}", initial_state.to_string()));
+    log(&format!("{}", states.to_string()));
+    log(&format!("{}", final_states.to_string()));
+    log(&format!("{}", transitions.to_string()));
 }
 
 #[wasm_bindgen]

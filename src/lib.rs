@@ -32,11 +32,34 @@ pub fn greet(name: &str) {
 
 #[wasm_bindgen]
 pub fn build_machine(entry_word: &str, alphabet: &str, initial_state: &str, states: &str, final_states: &str, transitions: &str) {
+    let tape = tape::Tape::new(alphabet, entry_word);
+    let mut states_list_final: Vec<state::State> = [state::State::new('a', state::StateType::Start)].to_vec();
+
+    let states_list = states.split(",");
+    let mut i: u8 = 'b' as u8;
+    let vector_1:Vec<state::State> = states_list.into_iter().map(|s| {
+        let c = i as char;
+        i += 1;
+        return state::State::new(c, state::StateType::Empty);
+    }).collect();
+
+    let final_states_list = final_states.split(",");
+    let vector_2:Vec<state::State> = final_states_list.into_iter().map(|s| {
+        let c = i as char;
+        i += 1;
+        return state::State::new(c, state::StateType::Final);
+    }).collect();
+
+    states_list_final.extend(vector_1);
+    states_list_final.extend(vector_2);
+
+    for state in &states_list_final {
+        log(&format!("{}", state.id));
+    }
+
     log(&format!("{}", entry_word.to_string()));
     log(&format!("{}", alphabet.to_string()));
     log(&format!("{}", initial_state.to_string()));
-    log(&format!("{}", states.to_string()));
-    log(&format!("{}", final_states.to_string()));
     log(&format!("{}", transitions.to_string()));
 }
 
